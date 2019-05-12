@@ -6,6 +6,30 @@
   position: absolute;
   background-color: #272727;
 }
+.particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.navbar{
+  height:80px;
+  z-index: 2;
+}
+
+.canvas {
+  display: block;
+  vertical-align: bottom;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  background-color: #272727;
+  -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
+  transition: opacity .8s ease, transform 1.4s ease
+}
 
 .header-color {
   background-color: #379683;
@@ -29,10 +53,8 @@ div.sticky {
 }
 
 .cat {
-  background: #76b852;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #8DC26F, #76b852);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #8DC26F, #76b852); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-padding-left: 200px;
+  background-color: 'transparent';
+  padding-left: 200px;
 padding-right: 200px;
 }
 

@@ -3,9 +3,11 @@ import {Tab, Tabs, Grid, Cell, Card, CardTitle, CardActions, CardMenu, Button, I
         FABButton, Icon} from 'react-mdl';
 import {Modal,InputGroup,FormControl,Dropdown, DropdownButton} from 'react-bootstrap';
 import fire from '../config/firebaseConfig';
+import Particles from "react-particles-js";
+
 export default class ProjDashBoard extends Component {
     
-    state = {activeTab:0, projects:[], modalShow:false, title:"", description:"", gitLink:"", curUid:"", selectLab:"DropDown"}
+    state = {activeTab:0, projects:[], modalShow:false, title:"", description:"", gitLink:"", curUid:"", selectLab:"DropDown", heightCtr:0}
 
     handleSubmit = (developer) => {
         this.setState({
@@ -21,9 +23,13 @@ export default class ProjDashBoard extends Component {
         if(fire.auth().currentUser !== null)
         console.log(fire.auth().currentUser.uid)
         var projects = []
+        var aiMLProjects = []
         var projCtr = 0;
+        var aimlctr = 0;
+        var heightCtr = 0;
         fire.database().ref('projects/').on('value',(snap)=>{
             var project = []
+            var aimlProj = []
             Object.values(snap.val()).map(proj => {
                 console.log(projCtr)
                 if(projCtr%3==0)
@@ -38,6 +44,22 @@ export default class ProjDashBoard extends Component {
                         }
                     
                 }
+
+                if(aimlctr%3==0)
+                {
+                    if(aimlctr!=0)
+                        {
+                            //console.log(projCtr)
+
+                            aiMLProjects.push(<Grid>
+                                {aimlProj}
+                            </Grid>)
+                            heightCtr = heightCtr + 1;
+                        aimlProj = []
+                        }
+                    
+                }
+
                 //
                 var images = ["https://images.unsplash.com/photo-1551169795-9e8eb7adb400?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80",
                             "https://images.unsplash.com/photo-1517167685284-96a27681ad75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80",
@@ -62,20 +84,43 @@ export default class ProjDashBoard extends Component {
                             <IconButton name="share" />
                         </CardMenu>
                     </Card></Cell>)
-                projCtr = projCtr +1 
+                projCtr = projCtr +1
+                console.log(proj.Lab) 
+                if(typeof proj.Lab !== undefined && proj.Lab!= null)
+                {
+                    console.log("asdasdasd", typeof proj.Lab)
+                if(proj.Lab == "AI and ML Innovation Lab")
+            {
+             aimlProj.push(<Cell col={4} ><Card shadow={5} style={{width: '300px',height:"300px", margin: 'auto', borderRadius:'20px'}}>
+                <CardTitle style={{color: '#fff', height: '176px', background: background}}>{proj.title}</CardTitle>
+                <CardActions style={{height:'80px',}} border>
+                <CardText style={{height:'80px', color:"black", fontSize:16}}>{this.maxLength(proj.description, 60)}</CardText>
+                </CardActions>
+                <CardActions border>
+                    <Button onClick={this.handleSubmit.bind(this, proj.developer)} colored centered>View Project</Button>
+                    </CardActions>
+                <CardMenu style={{color: '#fff'}}>
+                    <IconButton name="share" />
+                </CardMenu>
+            </Card></Cell>
+                )
+                aimlctr = aimlctr + 1   
+            }
+        }
             })
+
+            aiMLProjects.push(<Grid>{aimlProj}</Grid>)
             projects.push(<Grid>{project}</Grid>)
             console.log(projects)
-            this.setState({projects:projects});
+            this.setState({projects:projects, aiMLProjects: aiMLProjects, heightCtr : heightCtr});
         });
     }
 
 
     
 
-    maxLength(str)
+    maxLength(str, maxlen=40)
     {   
-        var maxlen = 40
         if(str.length>maxlen)
         {
             str = str.slice(0,maxlen);
@@ -107,18 +152,14 @@ export default class ProjDashBoard extends Component {
         {
             return(
                 <div>
-                    <h1>Mama</h1>
+                    <h1>All the department projects will be displayed here</h1>
                 </div>
             )
         }
 
         else
         {
-            return(
-                <div>
-                    <h1>Maams</h1>
-                </div>
-            )
+            return <div>{this.state.aiMLProjects}</div>
         }
     }   
 
@@ -209,12 +250,135 @@ export default class ProjDashBoard extends Component {
         this.setState({ modalShow: false });
     }
 
+    backgroundParticles()
+    {
+        return(
+            <div className="particle">
+                <Particles
+        canvasClassName="canvas"
+        params={{
+            "particles": {
+              "number": {
+                "value": 80,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "color": {
+                "value": "#ffffff"
+              },
+              "shape": {
+                "type": "circle",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                },
+                "image": {
+                  "src": "img/github.svg",
+                  "width": 100,
+                  "height": 100
+                }
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                  "enable": false,
+                  "speed": 40,
+                  "size_min": 0.1,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 6,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "grab"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 400,
+                  "line_linked": {
+                    "opacity": 1
+                  }
+                },
+                "bubble": {
+                  "distance": 400,
+                  "size": 40,
+                  "duration": 2,
+                  "opacity": 8,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 200,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          }}
+      />
+                </div>
+        )
+    }
+
     render()
     {   
 
         return(
             <div>
-                <div>
+                
+                {this.backgroundParticles()}
+                <div style={{position:'relative'}}>
                 <Tabs activeTab={this.state.activeTab} style={{background:"#feda6a"}} onChange={ (tabId)=> {this.setState({ activeTab:tabId }) } } ripple>
                     <Tab>All Projects</Tab>
                     <Tab>Department Projects</Tab>
@@ -236,10 +400,12 @@ export default class ProjDashBoard extends Component {
                         <Icon name="add" />
                 </FABButton>
                 </div>
-                    <div className="cat">  
+
+                
+                    <div style={{paddingLeft:200, paddingRight:200}}>  
                         {this.toggleCategories()}
                     </div>
-                
+
                     
                 </div>
         )
