@@ -37,7 +37,7 @@ authListener(){
   {
       if(this.state.user!== null)
       {
-        return <Nav.Link style={{fontSize:16}} href="/auth">{this.state.fullName}</Nav.Link>
+        return <Nav.Link style={{fontSize:16}} href="/profile">{this.state.fullName}</Nav.Link>
       }
 
       else
