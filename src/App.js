@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import {Layout, Header, Navigation, Drawer, Content} from 'react-mdl';
 import './App.css';
 import Root from './components/root';
-import {Link} from 'react-router-dom';
+import {Link, BrowserRouter,Switch, Route} from 'react-router-dom';
 import fire from './config/firebaseConfig';
-import {Nav, Navbar} from 'react-bootstrap'
+import {Nav, Navbar} from 'react-bootstrap';
+import ProjDashBoard from './components/ProjDashBoard';
+import LandingPage from './components/LandingPage';
+import Profile from './components/Profile';
+import Authentication from './components/Authentication';
+import ProjectDetails from './components/ProjectDetails';
 
 class App extends Component {
     state = {user:null, fullName:""}
@@ -37,30 +42,39 @@ authListener(){
   {
       if(this.state.user!== null)
       {
-        return <Nav.Link style={{fontSize:16}} href="/profile">{this.state.fullName}</Nav.Link>
+        return <Link style={{fontSize:16, marginRight:20, color:'#fff'}} to="/profile">{this.state.fullName}</Link>
       }
 
       else
       {
-        return <Nav.Link style={{fontSize:16}} href="/auth">Login</Nav.Link>
+        return <Link style={{fontSize:16, marginRight:20, color:'#fff'}} to="/auth">Login</Link>
       }
   }
 
   render() {
     return (
       <div className="nav-bar">
-        <Navbar bg="dark" variant="dark" className="navbar">
+        <Navbar bg="dark" variant="dark" className="navbar" sticky="top">
         <img src="https://img.collegepravesh.com/2018/10/DSI-Bangalore-Logo.png" style={{width:'40px', height:'40px', marginRight:'20px'}} />
         <Navbar.Brand href="#home">CSE Dashboard</Navbar.Brand>
         <Nav className="ml-auto">
-        <Nav.Link style={{fontSize:16}} href="/projects">Projects</Nav.Link>
-        <Nav.Link style={{fontSize:16}} href="/profile">Features</Nav.Link>
+        <div>
+        <Link style={{fontSize:16, marginRight:20, color:'#fff'}} to="/projects">Projects</Link>
+        <Link style={{fontSize:16, marginRight:20, color:'#fff'}} to="/profile">Features</Link>
         {this.profileCheck()}
-        <Nav.Link style={{fontSize:16}}href="#">Pricing</Nav.Link>
+        <Link style={{fontSize:16, marginRight:20, color:'#fff'}}to="#">Pricing</Link>
+        </div>
         </Nav>
         </Navbar>
         <div style={{width:"100%"}}>
-            <Root />
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/projects" component={ProjDashBoard} />
+          <Route path="/users" component={Profile} />
+          <Route path="/auth" component={Authentication} />
+          <Route path="/project/:ids" component={ProjectDetails} />
+        </Switch>
         </div>
 </div>
     );

@@ -14,6 +14,163 @@
   height: 100%;
 }
 
+.GridCard {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  border-radius: 300px;
+}
+
+.mainTitle {
+  display:flex;
+  height:60px;
+  background:#6F69FF;
+
+}
+
+.subgroups {
+  display:flex;
+  flex-direction:row;
+}
+
+.subgroups:hover {
+  background: #5652CD;
+}
+
+.mainTitle:hover {
+  background: #8883FA;
+}
+
+
+
+@font-face {
+  font-family: 'MONTSERRAT-SEMIBOLD';
+  src: local('MONTSERRAT-SEMIBOLD'), url(./fonts/MONTSERRAT-SEMIBOLD.OTF) format('opentype');
+}
+
+@font-face {
+  font-family: 'MONTSERRAT-MEDIUM';
+  src: local('MONTSERRAT-MEDIUM'), url(./fonts/MONTSERRAT-MEDIUM.OTF) format('opentype');
+}
+
+
+  @keyframes lds-double-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes lds-double-ring {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes lds-double-ring_reverse {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+@-webkit-keyframes lds-double-ring_reverse {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+  }
+}
+.lds-double-ring {
+  position: relative;
+}
+.lds-double-ring div {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: 20px;
+  left: 20px;
+  border-radius: 50%;
+  border: 8px solid #000;
+  border-color: #6681e9 transparent #6681e9 transparent;
+  -webkit-animation: lds-double-ring 1s linear infinite;
+  animation: lds-double-ring 1s linear infinite;
+}
+.lds-double-ring div:nth-child(2) {
+  width: 140px;
+  height: 140px;
+  top: 30px;
+  left: 30px;
+  border-color: transparent #feda6a transparent #feda6a;
+  -webkit-animation: lds-double-ring_reverse 1s linear infinite;
+  animation: lds-double-ring_reverse 1s linear infinite;
+}
+.lds-double-ring {
+  width: 200px !important;
+  height: 200px !important;
+  -webkit-transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+  transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+}
+
+
+/* [1] The container */
+.img-hover-zoom {
+  object-fit:cover;
+  position: absolute;
+  top:45px;
+  left:0;
+  width:100%;
+  height:70%;
+  overflow: hidden; /* [1.2] Hide the overflowing of child elements */
+}
+
+/* [2] Transition property for smooth transformation of images */
+.img-hover-zoom {
+  transition: transform .7s ease;
+}
+
+/* [3] Finally, transforming the image when container gets hovered */
+
+.description {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top:45px;
+  left:0;
+  width:100%;
+  height:70%;
+  text-align: center;
+  color:#fff;
+  background: #00000080;
+}
+
+
+.GridCard:hover {
+  width: 320px;
+  height: 320px;
+}
+
+.categories {
+  overflow: hidden;
+}
+
+.cat2 {
+  overflow-y: scroll;
+}
+
 .navbar{
   height:80px;
   z-index: 2;
@@ -26,7 +183,7 @@
   -ms-transform: scale(1);
   transform: scale(1);
   opacity: 1;
-  background-color: #272727;
+  background-color: #fff;
   -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
   transition: opacity .8s ease, transform 1.4s ease
 }

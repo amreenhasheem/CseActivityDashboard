@@ -131,6 +131,11 @@ export default class Profile extends Component {
     });
   }
 
+  firebaseSignOut()
+  {
+    fire.auth().signOut();
+  }
+
   render() {
     return (
       <div style={{ height: "500px", position: "relative" }}>
@@ -152,7 +157,7 @@ export default class Profile extends Component {
               />
 
               <a href="#">Help & Feedback</a>
-              <a href="#">Sign Out</a>
+              <a href="auth" onClick={this.firebaseSignOut.bind(this)}>Sign Out</a>
             </Navigation>
           </Header>
           {/*} <Card
